@@ -1,44 +1,23 @@
-// database
 datasource db {
     provider = "sqlite"
     url      = "file:database.db"
 }
 
-// generator
 generator client {
     provider             = "prisma-client-py"
     recursive_type_depth = 5
 }
 
-// data models
-model Contato {
-    id                Int      @id @default(autoincrement())
-    cliente_id        String   // Identificador de qual dos 17 clientes é dono deste contato
-    
-    // Dados Básicos
-    cpf               String?  // Opcional, pois pode ser CNPJ
-    cnpj              String?  // Opcional, pois pode ser CPF
-    primeiroNome      String?
-    sobrenome         String?
-    rg                String?
-    razaoSocial       String?
-    
-    // Outros dados básicos para teste
-    email1            String?
-    descricao         String?
-    
-    // Relações (1 Contato pode ter vários telefones e endereços)
-    telefones         Telefone[]
-    
-    // Garante que não teremos contatos duplicados do mesmo CPF/CNPJ para o mesmo cliente
-    @@unique([cliente_id, cpf])
-    @@unique([cliente_id, cnpj])
-}
+model Cliente_telenova {
+    id           Int     @id @default(autoincrement())
+    empresa_id   String
+    cpf          String?
+    cnpj         String?
+    primeiroNome String
 
-model Telefone {
-    id         Int      @id @default(autoincrement())
-    telefone   String
-    chave      Boolean  @default(false)
-    contato_id Int
-    contato    Contato  @relation(fields: [contato_id], references: [id], onDelete: Cascade)
+    telefone String
+
+    // Garante que a mesma empresa não cadastre o mesmo contato duas vezes
+    @@unique([empresa_id, cpf])
+    @@unique([empresa_id, cnpj])
 }
