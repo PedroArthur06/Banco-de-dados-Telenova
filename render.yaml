@@ -2,7 +2,7 @@ services:
   - type: web
     name: telenova-api
     env: python
-    buildCommand: "pip install -r requirements.txt && prisma generate"
+    buildCommand: "pip install -r requirements.txt && prisma generate --schema=Prisma/schema.prisma"
     startCommand: "uvicorn src.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
