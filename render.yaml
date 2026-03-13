@@ -6,6 +6,6 @@ services:
     startCommand: "uvicorn src.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0 # Or your preferred python version
+        value: 3.11.8
       - key: DATABASE_URL
-        sync: false # Must be filled in Render Dashboard
+        sync: false
