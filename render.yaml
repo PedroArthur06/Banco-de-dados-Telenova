@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: telenova-api
+    env: python
+    buildCommand: "pip install -r requirements.txt && prisma generate"
+    startCommand: "uvicorn src.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0 # Or your preferred python version
+      - key: DATABASE_URL
+        sync: false # Must be filled in Render Dashboard
